@@ -1,0 +1,51 @@
+package model;
+
+public class ArvoreRubroNegra<K extends Comparable<K>, V> {
+    private class No {
+        K chave;
+        V valor;
+        No esquerda, direita, pai;
+        boolean cor; // true -> vermelho, false -> preto
+
+        No(K chave, V valor) {
+            this.chave = chave;
+            this.valor = valor;
+            this.cor = true; // Nós recém-criados são vermelhos por padrão
+        }
+    }
+
+    private No raiz;
+
+    public void inserir(K chave, V valor) {
+        // Implementação de inserção na árvore Rubro-Negra
+    }
+
+    public void remover(K chave) {
+        // Implementação de remoção na árvore Rubro-Negra
+    }
+
+    public V buscar(K chave) {
+        No atual = raiz;
+        while (atual != null) {
+            int cmp = chave.compareTo(atual.chave);
+            if (cmp < 0) atual = atual.esquerda;
+            else if (cmp > 0) atual = atual.direita;
+            else return atual.valor;
+        }
+        return null;
+    }
+
+    public List<V> listarTodos() {
+        List<V> resultado = new ArrayList<>();
+        inOrder(raiz, resultado);
+        return resultado;
+    }
+
+    private void inOrder(No no, List<V> resultado) {
+        if (no != null) {
+            inOrder(no.esquerda, resultado);
+            resultado.add(no.valor);
+            inOrder(no.direita, resultado);
+        }
+    }
+}

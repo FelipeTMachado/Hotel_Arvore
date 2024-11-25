@@ -1,0 +1,44 @@
+package model;
+
+public class ArvoreRubroNegra {
+	// ATRIBUTOS
+	private Nodo raiz;
+	
+	
+	
+	// CLASSES AUXILIARES
+	private enum Cor {
+		VERMELHO, 
+		PRETO
+	}
+	
+	private class Nodo {
+		Hotel hotel;
+		Cor cor;
+		Nodo esquerdo, direito, pai;
+		
+		public Nodo(Hotel hotel) {
+			this.hotel = hotel;
+			this.cor = Cor.VERMELHO;
+			esquerdo = direito = pai;
+		}
+	}
+	
+		
+	
+	// CONSTRUTOR
+	public ArvoreRubroNegra() {
+		raiz = null;
+		
+	}
+	
+	
+	
+	// GETTERS E SETTERS
+	public Nodo getRaiz() {
+		return raiz;
+	}
+	public void setRaiz(Nodo raiz) {
+		this.raiz = raiz;
+	}
+}

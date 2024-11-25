@@ -1,0 +1,31 @@
+package view;
+
+import java.util.Scanner;
+
+import controller.Controller;
+
+public class View {
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Fazer reserva");
+            System.out.println("2 - Buscar reserva");
+            System.out.println("3 - Sair");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine();  // Consumir a nova linha
+
+            if (opcao == 1) {
+                controller.fazerReserva();
+            } else if (opcao == 2) {
+                controller.buscarReserva();
+            } else {
+                break;
+            }
+        }
+    }
+}
+

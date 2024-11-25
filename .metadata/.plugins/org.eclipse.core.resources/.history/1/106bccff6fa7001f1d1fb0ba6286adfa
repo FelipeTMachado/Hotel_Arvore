@@ -1,0 +1,17 @@
+package model;
+
+public class Hotel {
+	// ATRIBUTOS
+	private String nome;
+	
+	
+	
+	// CONTRUTOR
+	public Hotel() {
+		
+	}
+	
+	
+	// 
+	
+}

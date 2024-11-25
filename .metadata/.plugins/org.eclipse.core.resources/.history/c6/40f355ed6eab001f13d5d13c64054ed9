@@ -1,0 +1,145 @@
+package estrutura;
+
+import model.Reserva;
+
+public class ArvoreRubroNegra {
+    private Node raiz;
+
+    // Estrutura do nó
+    private class Node {
+        Reserva reserva;
+        Node pai, esquerda, direita;
+        boolean cor; // falso para preto, verdadeiro para vermelho
+
+        public Node(Reserva reserva) {
+            this.reserva = reserva;
+            this.cor = true; // o nó novo é vermelho por padrão
+        }
+    }
+
+    public ArvoreRubroNegra() {
+        raiz = null;
+    }
+
+    // Rotação à esquerda
+    private void rotacaoEsquerda(Node x) {
+        Node y = x.direita;
+        x.direita = y.esquerda;
+        if (y.esquerda != null) {
+            y.esquerda.pai = x;
+        }
+        y.pai = x.pai;
+        if (x.pai == null) {
+            raiz = y;
+        } else if (x == x.pai.esquerda) {
+            x.pai.esquerda = y;
+        } else {
+            x.pai.direita = y;
+        }
+        y.esquerda = x;
+        x.pai = y;
+    }
+
+    // Rotação à direita
+    private void rotacaoDireita(Node x) {
+        Node y = x.esquerda;
+        x.esquerda = y.direita;
+        if (y.direita != null) {
+            y.direita.pai = x;
+        }
+        y.pai = x.pai;
+        if (x.pai == null) {
+            raiz = y;
+        } else if (x == x.pai.direita) {
+            x.pai.direita = y;
+        } else {
+            x.pai.esquerda = y;
+        }
+        y.direita = x;
+        x.pai = y;
+    }
+
+    // Balanceamento após inserção
+    private void balancearInsercao(Node z) {
+        while (z.pai != null && z.pai.cor) {
+            if (z.pai == z.pai.pai.esquerda) {
+                Node y = z.pai.pai.direita;
+                if (y != null && y.cor) { // Caso 1: tio vermelho
+                    z.pai.cor = false;
+                    y.cor = false;
+                    z.pai.pai.cor = true;
+                    z = z.pai.pai;
+                } else {
+                    if (z == z.pai.direita) { // Caso 2: z está à direita
+                        z = z.pai;
+                        rotacaoEsquerda(z);
+                    }
+                    z.pai.cor = false;
+                    z.pai.pai.cor = true;
+                    rotacaoDireita(z.pai.pai);
+                }
+            } else {
+                Node y = z.pai.pai.esquerda;
+                if (y != null && y.cor) { // Caso 1: tio vermelho
+                    z.pai.cor = false;
+                    y.cor = false;
+                    z.pai.pai.cor = true;
+                    z = z.pai.pai;
+                } else {
+                    if (z == z.pai.esquerda) { // Caso 2: z está à esquerda
+                        z = z.pai;
+                        rotacaoDireita(z);
+                    }
+                    z.pai.cor = false;
+                    z.pai.pai.cor = true;
+                    rotacaoEsquerda(z.pai.pai);
+                }
+            }
+        }
+        raiz.cor = false; // A raiz é sempre preta
+    }
+
+    // Inserção de uma nova reserva
+    public void inserir(Reserva reserva) {
+        Node novo = new Node(reserva);
+        if (raiz == null) {
+            raiz = novo;
+            novo.cor = false; // A raiz é sempre preta
+        } else {
+            Node atual = raiz;
+            while (true) {
+                if (reserva.getDataEntrada().compareTo(atual.reserva.getDataEntrada()) < 0) {
+                    if (atual.esquerda == null) {
+                        atual.esquerda = novo;
+                        novo.pai = atual;
+                        break;
+                    }
+                    atual = atual.esquerda;
+                } else {
+                    if (atual.direita == null) {
+                        atual.direita = novo;
+                        novo.pai = atual;
+                        break;
+                    }
+                    atual = atual.direita;
+                }
+            }
+            balancearInsercao(novo);
+        }
+    }
+
+    // Método para buscar uma reserva
+    public Reserva buscar(String dataEntrada) {
+        Node atual = raiz;
+        while (atual != null) {
+            if (dataEntrada.equals(atual.reserva.getDataEntrada())) {
+                return atual.reserva;
+            } else if (dataEntrada.compareTo(atual.reserva.getDataEntrada()) < 0) {
+                atual = atual.esquerda;
+            } else {
+                atual = atual.direita;
+            }
+        }
+        return null;
+    }
+}

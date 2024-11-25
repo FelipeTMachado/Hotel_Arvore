@@ -1,0 +1,83 @@
+package model;
+
+public class Reserva {
+	// ATRIBUTOS
+	private String cpfCliente;         // ID ou CPF do cliente.
+    private int numeroQuarto;         // Número do quarto.
+    private String nomeCliente;       // Nome do cliente.
+    private String dataCheckIn;       // Data de check-in (formato YYYY-MM-DD).
+    private String dataCheckOut;      // Data de check-out (formato YYYY-MM-DD).
+    private String categoriaQuarto;   // Categoria do quarto (econômico, luxo, etc.).
+
+    // CONSTRUTOR
+    public Reserva(String cpfCliente, int numeroQuarto, String nomeCliente, 
+                   String dataCheckIn, String dataCheckOut, String categoriaQuarto) {
+        this.cpfCliente = cpfCliente;
+        this.numeroQuarto = numeroQuarto;
+        this.nomeCliente = nomeCliente;
+        this.dataCheckIn = dataCheckIn;
+        this.dataCheckOut = dataCheckOut;
+        this.categoriaQuarto = categoriaQuarto;
+    }
+
+    
+    
+    // METODOS FUNCIONAIS
+    private boolean verificarConflito(No raiz, int numeroQuarto, String dataCheckIn, String dataCheckOut) {
+        if (raiz == null) {
+            return false;
+        }
+
+        Reserva reserva = raiz.valor;
+        if (reserva.getNumeroQuarto() == numeroQuarto) {
+            if (!(dataCheckOut.compareTo(reserva.getDataCheckIn()) <= 0 || 
+                  dataCheckIn.compareTo(reserva.getDataCheckOut()) >= 0)) {
+                return true;
+            }
+        }
+
+        return verificarConflito(raiz.esquerda, numeroQuarto, dataCheckIn, dataCheckOut) ||
+               verificarConflito(raiz.direita, numeroQuarto, dataCheckIn, dataCheckOut);
+    }
+
+    
+    
+    // GETTERS E SETTERS
+	public String getCpfCliente() {
+		return cpfCliente;
+	}
+	public void setCpfCliente(String cpfCliente) {
+		this.cpfCliente = cpfCliente;
+	}
+	public int getNumeroQuarto() {
+		return numeroQuarto;
+	}
+	public void setNumeroQuarto(int numeroQuarto) {
+		this.numeroQuarto = numeroQuarto;
+	}
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+	public String getDataCheckIn() {
+		return dataCheckIn;
+	}
+	public void setDataCheckIn(String dataCheckIn) {
+		this.dataCheckIn = dataCheckIn;
+	}
+	public String getDataCheckOut() {
+		return dataCheckOut;
+	}
+	public void setDataCheckOut(String dataCheckOut) {
+		this.dataCheckOut = dataCheckOut;
+	}
+	public String getCategoriaQuarto() {
+		return categoriaQuarto;
+	}
+	public void setCategoriaQuarto(String categoriaQuarto) {
+		this.categoriaQuarto = categoriaQuarto;
+	}
+}
+

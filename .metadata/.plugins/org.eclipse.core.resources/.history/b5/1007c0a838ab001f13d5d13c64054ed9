@@ -1,0 +1,190 @@
+package estrutura;
+
+import model.Reserva;
+
+public class ArvoreRubroNegra {
+	// CLASSE AUXILIAR
+	private class No {
+		// ATRIBUTOS
+		String  chave;
+		Reserva valor;
+		boolean cor;
+		No      pai;
+		No      esquerda;
+		No      direita;
+	
+		
+		
+		// CONSTRUTOR
+		public No(String chave, Reserva valor, boolean cor) {
+			this.chave    = chave;
+			this.valor    = valor;
+			this.cor      = cor;
+			this.pai      = null;
+			this.esquerda = null;
+			this.esquerda = null;
+		}
+	}
+	
+	
+	// ATRIBUTOS
+	private No raiz;
+	private final boolean VERMELHO = true;
+	private final boolean PRETO    = false;
+	
+	
+	
+	// CONSTRUTOR
+	public ArvoreRubroNegra() {
+		this.raiz = null;
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	// METODOS FUNCIONAIS
+    public boolean cadastrarReserva(Reserva novaReserva) {
+        if (verificarConflito(raiz, novaReserva.getNumeroQuarto(), 
+                              novaReserva.getDataCheckIn(), novaReserva.getDataCheckOut())) {
+            return false; // Conflito encontrado
+        }
+        inserir(novaReserva.getCpfCliente(), novaReserva);
+        return true;
+    }
+
+    
+    private boolean verificarConflito(No raiz, int numeroQuarto, String dataCheckIn, String dataCheckOut) {
+        if (raiz == null) {
+            return false;
+        }
+
+        Reserva reserva = raiz.valor;
+        if (reserva.getNumeroQuarto() == numeroQuarto) {
+            if (!(dataCheckOut.compareTo(reserva.getDataCheckIn()) <= 0 || 
+                  dataCheckIn.compareTo(reserva.getDataCheckOut()) >= 0)) {
+                return true;
+            }
+        }
+
+        return verificarConflito(raiz.esquerda, numeroQuarto, dataCheckIn, dataCheckOut) ||
+               verificarConflito(raiz.direita, numeroQuarto, dataCheckIn, dataCheckOut);
+    }
+	
+	public void inserir(String chave, Reserva valor) {
+	    No novoNo = new No(chave, valor, VERMELHO);
+	    raiz = inserirNo(raiz, novoNo);
+	    ajustarBalanceamento(novoNo);
+	}
+	
+	private No inserirNo(No atual, No novo) {
+	    if (atual == null) {
+	        return novo;
+	    }
+
+	    if (novo.chave.compareTo(atual.chave) < 0) {
+	        atual.esquerda = inserirNo(atual.esquerda, novo);
+	        atual.esquerda.pai = atual;
+	    } else if (novo.chave.compareTo(atual.chave) > 0) {
+	        atual.direita = inserirNo(atual.direita, novo);
+	        atual.direita.pai = atual;
+	    }
+	    return atual;
+	}
+
+	private void ajustarBalanceamento(No no) {
+	    while (no != raiz && no.pai.cor == VERMELHO) {
+	        No avo = no.pai.pai;
+	        if (no.pai == avo.esquerda) {
+	            No tio = avo.direita;
+
+	            if (tio != null && tio.cor == VERMELHO) {
+	                no.pai.cor = PRETO;
+	                tio.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                no = avo;
+	            } else {
+	                if (no == no.pai.direita) {
+	                    no = no.pai;
+	                    rotacaoEsquerda(no);
+	                }
+
+	                no.pai.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                rotacaoDireita(avo);
+	            }
+	        } else {
+	            No tio = avo.esquerda;
+
+	            if (tio != null && tio.cor == VERMELHO) {
+	                no.pai.cor = PRETO;
+	                tio.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                no = avo;
+	            } else {
+	                if (no == no.pai.esquerda) {
+	                    no = no.pai;
+	                    rotacaoDireita(no);
+	                }
+
+	                no.pai.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                rotacaoEsquerda(avo);
+	            }
+	        }
+	    }
+	    raiz.cor = PRETO;
+	}
+
+	private void rotacaoEsquerda(No no) {
+	    No direita = no.direita;
+	    no.direita = direita.esquerda;
+
+	    if (direita.esquerda != null) {
+	        direita.esquerda.pai = no;
+	    }
+	    direita.pai = no.pai;
+
+	    if (no.pai == null) {
+	        raiz = direita;
+	    } else if (no == no.pai.esquerda) {
+	        no.pai.esquerda = direita;
+	    } else {
+	        no.pai.direita = direita;
+	    }
+	    direita.esquerda = no;
+	    no.pai = direita;
+	}
+
+	private void rotacaoDireita(No no) {
+	    No esquerda = no.esquerda;
+	    no.esquerda = esquerda.direita;
+
+	    if (esquerda.direita != null) {
+	        esquerda.direita.pai = no;
+	    }
+	    esquerda.pai = no.pai;
+
+	    if (no.pai == null) {
+	        raiz = esquerda;
+	    } else if (no == no.pai.direita) {
+	        no.pai.direita = esquerda;
+	    } else {
+	        no.pai.esquerda = esquerda;
+	    }
+	    esquerda.direita = no;
+	    no.pai = esquerda;
+	}
+	
+	public void mostrarArvore() {
+	    mostrarArvore(raiz, "", true);
+	}
+
+	private void mostrarArvore(No no, String prefixo, boolean isTail) {
+	    if (no != null) {
+	        System.out.println(prefixo + (isTail ? "└── " : "├── ") + no.chave + " (" + (no.cor ? "R" : "B") + ")");
+	        mostrarArvore(no.direita, prefixo + (isTail ? "    " : "│   "), false);
+	        mostrarArvore(no.esquerda, prefixo + (isTail ? "    " : "│   "), true);
+	    }
+	}
+
+}

@@ -1,0 +1,30 @@
+package model;
+
+public class Quarto {
+	// ATRIBUTOS
+	private int quantidadeCama;
+	private boolean sacada;
+	
+	
+	
+	// CONSTRUTOR
+	public Quarto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public int getQuantidadeCama() {
+		return quantidadeCama;
+	}
+	public void setQuantidadeCama(int quantidadeCama) {
+		this.quantidadeCama = quantidadeCama;
+	}
+	public boolean isSacada() {
+		return sacada;
+	}
+	public void setSacada(boolean sacada) {
+		this.sacada = sacada;
+	}
+}

@@ -1,0 +1,50 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Cliente;
+import model.Funcionario;
+import model.Pessoa;
+
+public class PessoaController {
+	// ATRIBUTOS
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	
+	
+	
+	// CONSTRUTOR
+	public PessoaController() {
+		
+	}
+	
+	
+	// METODOS
+	public Cliente criarCliente() {
+		
+		
+		return new Cliente(0, null, null, null);
+	}
+	
+	
+	public Funcionario criarFuncionario() {
+		
+		
+		return new Funcionario(0, null, null, null);
+	}
+	
+	public boolean verificarExistencia() {
+		return false;
+	}
+	
+	
+	
+	
+	// GETTERS AND SETTERS
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+}

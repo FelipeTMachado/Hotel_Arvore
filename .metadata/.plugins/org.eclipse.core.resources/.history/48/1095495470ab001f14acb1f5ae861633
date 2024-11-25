@@ -1,0 +1,33 @@
+package controller;
+
+import model.Reserva;
+import view.ClienteView;
+
+public class ClienteController {
+	// ATRIBUTOS
+	private Reserva cliente;
+	private ClienteView view;
+	
+	
+	
+	// CONSTRUTOR
+	public ClienteController() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	// GETTERS E SETTERS
+	public Reserva getCliente() {
+		return cliente;
+	}
+	public void setCliente(Reserva cliente) {
+		this.cliente = cliente;
+	}
+	public ClienteView getView() {
+		return view;
+	}
+	public void setView(ClienteView view) {
+		this.view = view;
+	}
+}

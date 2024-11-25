@@ -1,0 +1,67 @@
+package estrutura;
+
+import model.Reserva;
+
+public class ArvoreRubroNegra {
+	// CLASSE AUXILIAR
+	private class No {
+		// ATRIBUTOS
+		String  chave;
+		Reserva valor;
+		boolean cor;
+		No      pai;
+		No      esquerda;
+		No      direita;
+	
+		
+		
+		// CONSTRUTOR
+		public No(String chave, Reserva valor, boolean cor) {
+			this.chave    = chave;
+			this.valor    = valor;
+			this.cor      = cor;
+			this.pai      = null;
+			this.esquerda = null;
+			this.esquerda = null;
+		}
+	}
+	
+	
+	// ATRIBUTOS
+	private No raiz;
+	private final boolean VERMELHO = true;
+	private final boolean PRETO    = false;
+	
+	
+	
+	// CONSTRUTOR
+	public ArvoreRubroNegra() {
+		this.raiz = null;
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void inserir(String chave, Reserva valor) {
+	    No novoNo = new No(chave, valor, VERMELHO);
+	    raiz = inserirNo(raiz, novoNo);
+//	    ajustarBalanceamento(novoNo);
+	}
+	
+	private No inserirNo(No atual, No novo) {
+	    if (atual == null) {
+	        return novo;
+	    }
+
+	    if (novo.chave.compareTo(atual.chave) < 0) {
+	        atual.esquerda = inserirNo(atual.esquerda, novo);
+	        atual.esquerda.pai = atual;
+	    } else if (novo.chave.compareTo(atual.chave) > 0) {
+	        atual.direita = inserirNo(atual.direita, novo);
+	        atual.direita.pai = atual;
+	    }
+	    return atual;
+	}
+
+
+}

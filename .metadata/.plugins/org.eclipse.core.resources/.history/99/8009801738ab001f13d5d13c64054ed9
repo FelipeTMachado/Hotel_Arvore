@@ -1,0 +1,53 @@
+package model;
+
+import java.time.LocalDate;
+
+public class Reserva {
+	private String id;
+	private String cpfCliente;
+	private String nomeCliente;
+	private LocalDate dataCheckIN;
+	private LocalDate dataCheckOUT;
+	private String categoriaQuarto;
+	
+	
+	
+	
+	// GETTERS E SETTERS
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCpfCliente() {
+		return cpfCliente;
+	}
+	public void setCpfCliente(String cpfCliente) {
+		this.cpfCliente = cpfCliente;
+	}
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+	public LocalDate getDataCheckIN() {
+		return dataCheckIN;
+	}
+	public void setDataCheckIN(LocalDate dataCheckIN) {
+		this.dataCheckIN = dataCheckIN;
+	}
+	public LocalDate getDataCheckOUT() {
+		return dataCheckOUT;
+	}
+	public void setDataCheckOUT(LocalDate dataCheckOUT) {
+		this.dataCheckOUT = dataCheckOUT;
+	}
+	public String getCategoriaQuarto() {
+		return categoriaQuarto;
+	}
+	public void setCategoriaQuarto(String categoriaQuarto) {
+		this.categoriaQuarto = categoriaQuarto;
+	}	
+}

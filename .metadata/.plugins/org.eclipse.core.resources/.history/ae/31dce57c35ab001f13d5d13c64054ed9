@@ -1,0 +1,45 @@
+package view;
+
+import java.util.Scanner;
+
+import model.Hotel;
+
+public class Main {
+	public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Hotel hotel = new Hotel(100); // Capacidade inicial de 100 quartos
+
+        while (true) {
+            System.out.println("1. Cadastrar Reserva");
+            System.out.println("2. Cancelar Reserva");
+            System.out.println("3. Consultar Reserva");
+            System.out.println("4. Listar Reservas");
+            System.out.println("5. Taxa de Ocupação");
+            System.out.println("6. Sair");
+            int opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    // Cadastrar nova reserva
+                    break;
+                case 2:
+                    // Cancelar reserva
+                    break;
+                case 3:
+                    // Consultar reserva
+                    break;
+                case 4:
+                    // Listar todas as reservas
+                    break;
+                case 5:
+                    System.out.println("Taxa de ocupação: " + hotel.getTaxaOcupacao() + "%");
+                    break;
+                case 6:
+                    System.out.println("Saindo...");
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+}

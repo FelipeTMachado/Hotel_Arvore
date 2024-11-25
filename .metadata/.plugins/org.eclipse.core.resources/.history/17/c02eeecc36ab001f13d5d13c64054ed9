@@ -1,0 +1,27 @@
+package estrutura;
+
+import javax.print.attribute.standard.NumberOfInterveningJobs;
+
+import model.Reserva;
+
+public class ArvoreRubroNegra {
+	private class No {
+		String  chave;
+		Reserva valor;
+		boolean cor;
+		No      pai;
+		No      esquerda;
+		No      direta;
+	
+		public No(String chave, Reserva valor, boolean cor) {
+			this.chave    = chave;
+			this.valor    = valor;
+			this.cor      = cor;
+			this.pai      = null;
+			this.esquerda = null;
+			this.esquerda = null;
+		}
+	}
+	
+	
+}

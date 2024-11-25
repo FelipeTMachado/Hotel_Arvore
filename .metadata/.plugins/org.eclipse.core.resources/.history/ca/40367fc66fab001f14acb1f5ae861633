@@ -1,0 +1,10 @@
+package controller;
+
+import model.Cliente;
+
+public class ClienteController {
+	private Cliente cliente;
+	private View view;
+	
+	
+}

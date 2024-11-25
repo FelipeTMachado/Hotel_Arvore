@@ -1,0 +1,7 @@
+package controller;
+
+import estrutura.ArvoreRubroNegra;
+
+public class GestorHotel {
+	private ArvoreRubroNegra reservasCanceladas = new ArvoreRubroNegra();
+}	

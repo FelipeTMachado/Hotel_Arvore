@@ -1,0 +1,67 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Hotel {
+	// ATRIBUTOS
+	private ArvoreRubroNegra<String, Reserva> reservas;
+    private ArvoreRubroNegra<String, Reserva> historicoCancelamentos;
+    private int capacidade;
+    private int quartosDisponiveis;
+
+    public Hotel(int capacidade) {
+        this.reservas = new ArvoreRubroNegra<>();
+        this.historicoCancelamentos = new ArvoreRubroNegra<>();
+        this.capacidade = capacidade;
+        this.quartosDisponiveis = capacidade;
+    }
+
+    public boolean cadastrarReserva(Reserva reserva) {
+        if (verificarDisponibilidade(reserva)) {
+            reservas.inserir(reserva.getIdCliente(), reserva);
+            quartosDisponiveis--;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verificarDisponibilidade(Reserva reserva) {
+        for (Reserva r : reservas.listarTodos()) {
+            if (r.getNumeroQuarto() == reserva.getNumeroQuarto() &&
+                datasConflitantes(r, reserva)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean datasConflitantes(Reserva r1, Reserva r2) {
+        // Lógica para verificar conflito de datas
+        return !(r1.getDataCheckOut().compareTo(r2.getDataCheckIn()) < 0 || 
+                 r2.getDataCheckOut().compareTo(r1.getDataCheckIn()) < 0);
+    }
+
+    public boolean cancelarReserva(String idCliente) {
+        Reserva reserva = reservas.buscar(idCliente);
+        if (reserva != null) {
+            reservas.remover(idCliente);
+            historicoCancelamentos.inserir(idCliente, reserva);
+            quartosDisponiveis++;
+            return true;
+        }
+        return false;
+    }
+
+    public List<Reserva> listarReservas() {
+        return reservas.listarTodos();
+    }
+
+    public List<Reserva> listarHistoricoCancelamentos() {
+        return historicoCancelamentos.listarTodos();
+    }
+
+    public int getTaxaOcupacao() {
+        return (capacidade - quartosDisponiveis) * 100 / capacidade;
+    }
+}

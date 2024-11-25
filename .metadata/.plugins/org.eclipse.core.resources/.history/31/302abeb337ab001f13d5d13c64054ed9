@@ -1,0 +1,154 @@
+package estrutura;
+
+import model.Reserva;
+
+public class ArvoreRubroNegra {
+	// CLASSE AUXILIAR
+	private class No {
+		// ATRIBUTOS
+		String  chave;
+		Reserva valor;
+		boolean cor;
+		No      pai;
+		No      esquerda;
+		No      direita;
+	
+		
+		
+		// CONSTRUTOR
+		public No(String chave, Reserva valor, boolean cor) {
+			this.chave    = chave;
+			this.valor    = valor;
+			this.cor      = cor;
+			this.pai      = null;
+			this.esquerda = null;
+			this.esquerda = null;
+		}
+	}
+	
+	
+	// ATRIBUTOS
+	private No raiz;
+	private final boolean VERMELHO = true;
+	private final boolean PRETO    = false;
+	
+	
+	
+	// CONSTRUTOR
+	public ArvoreRubroNegra() {
+		this.raiz = null;
+	}
+	
+	
+	
+	// METODOS FUNCIONAIS
+	public void inserir(String chave, Reserva valor) {
+	    No novoNo = new No(chave, valor, VERMELHO);
+	    raiz = inserirNo(raiz, novoNo);
+//	    ajustarBalanceamento(novoNo);
+	}
+	
+	private No inserirNo(No atual, No novo) {
+	    if (atual == null) {
+	        return novo;
+	    }
+
+	    if (novo.chave.compareTo(atual.chave) < 0) {
+	        atual.esquerda = inserirNo(atual.esquerda, novo);
+	        atual.esquerda.pai = atual;
+	    } else if (novo.chave.compareTo(atual.chave) > 0) {
+	        atual.direita = inserirNo(atual.direita, novo);
+	        atual.direita.pai = atual;
+	    }
+	    return atual;
+	}
+
+	private void ajustarBalanceamento(No no) {
+	    while (no != raiz && no.pai.cor == VERMELHO) {
+	        No avo = no.pai.pai;
+	        if (no.pai == avo.esquerda) {
+	            No tio = avo.direita;
+
+	            // Caso 1: Tio vermelho
+	            if (tio != null && tio.cor == VERMELHO) {
+	                no.pai.cor = PRETO;
+	                tio.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                no = avo;
+	            } else {
+	                // Caso 2: Rotação à direita
+	                if (no == no.pai.direita) {
+	                    no = no.pai;
+	                    rotacaoEsquerda(no);
+	                }
+
+	                // Caso 3: Rotação à esquerda
+	                no.pai.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                rotacaoDireita(avo);
+	            }
+	        } else {
+	            // Casos simétricos para o lado direito
+	            No tio = avo.esquerda;
+
+	            if (tio != null && tio.cor == VERMELHO) {
+	                no.pai.cor = PRETO;
+	                tio.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                no = avo;
+	            } else {
+	                if (no == no.pai.esquerda) {
+	                    no = no.pai;
+	                    rotacaoDireita(no);
+	                }
+
+	                no.pai.cor = PRETO;
+	                avo.cor = VERMELHO;
+	                rotacaoEsquerda(avo);
+	            }
+	        }
+	    }
+	    raiz.cor = PRETO;
+	}
+
+	private void rotacaoEsquerda(No no) {
+	    No direita = no.direita;
+	    no.direita = direita.esquerda;
+
+	    if (direita.esquerda != null) {
+	        direita.esquerda.pai = no;
+	    }
+	    direita.pai = no.pai;
+
+	    if (no.pai == null) {
+	        raiz = direita;
+	    } else if (no == no.pai.esquerda) {
+	        no.pai.esquerda = direita;
+	    } else {
+	        no.pai.direita = direita;
+	    }
+	    direita.esquerda = no;
+	    no.pai = direita;
+	}
+
+	private void rotacaoDireita(NoRubroNegro no) {
+	    NoRubroNegro esquerda = no.esquerda;
+	    no.esquerda = esquerda.direita;
+
+	    if (esquerda.direita != null) {
+	        esquerda.direita.pai = no;
+	    }
+	    esquerda.pai = no.pai;
+
+	    if (no.pai == null) {
+	        raiz = esquerda;
+	    } else if (no == no.pai.direita) {
+	        no.pai.direita = esquerda;
+	    } else {
+	        no.pai.esquerda = esquerda;
+	    }
+	    esquerda.direita = no;
+	    no.pai = esquerda;
+	}
+
+}

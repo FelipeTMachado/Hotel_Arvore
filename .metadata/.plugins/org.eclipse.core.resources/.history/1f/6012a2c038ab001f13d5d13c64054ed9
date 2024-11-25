@@ -1,0 +1,17 @@
+package view;
+
+import estrutura.ArvoreRubroNegra;
+import model.Reserva;
+
+public class Main {
+	public static void main(String[] args) {
+	    ArvoreRubroNegra arvore = new ArvoreRubroNegra();
+
+	    Reserva r1 = new Reserva("123", 101, "João", "2024-11-01", "2024-11-05", "Luxo");
+	    Reserva r2 = new Reserva("124", 101, "Maria", "2024-11-08", "2024-11-07", "Luxo");
+
+	    System.out.println("Reserva João cadastrada? " + arvore.cadastrarReserva(r1)); // true
+	    System.out.println("Reserva Maria cadastrada? " + arvore.cadastrarReserva(r2)); // false
+	}
+
+}

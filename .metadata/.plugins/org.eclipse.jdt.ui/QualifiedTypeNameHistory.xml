@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
+    <fullyQualifiedTypeName name="java.util.LinkedList"/>
+    <fullyQualifiedTypeName name="model.Pessoa"/>
+    <fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
+    <fullyQualifiedTypeName name="model.Cliente"/>
+    <fullyQualifiedTypeName name="model.Funcionario"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="model.Hotel"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="model.Reserva"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.standard.NumberOfInterveningJobs"/>
+    <fullyQualifiedTypeName name="estrutura.ArvoreRubroNegra.No"/>
+    <fullyQualifiedTypeName name="controller.Controller"/>
+</qualifiedTypeNameHistroy>

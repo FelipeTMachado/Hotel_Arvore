@@ -1,0 +1,28 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Pessoa;
+
+public class PessoaController {
+	// ATRIBUTOS
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	
+	
+	
+	// CONSTRUTOR
+	public PessoaController() {
+		
+	}
+	
+	
+	
+	// GETTERS AND SETTERS
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+}

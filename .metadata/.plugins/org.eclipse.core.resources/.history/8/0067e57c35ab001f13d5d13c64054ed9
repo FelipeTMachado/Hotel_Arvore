@@ -1,0 +1,28 @@
+package model;
+
+public class Reserva {
+	private String idCliente; // ID ou CPF
+    private int numeroQuarto;
+    private String nomeCliente;
+    private String dataCheckIn;
+    private String dataCheckOut;
+    private String categoriaQuarto; // Econômico, Luxo, etc.
+
+    // Construtor
+    public Reserva(String idCliente, int numeroQuarto, String nomeCliente, String dataCheckIn, String dataCheckOut, String categoriaQuarto) {
+        this.idCliente = idCliente;
+        this.numeroQuarto = numeroQuarto;
+        this.nomeCliente = nomeCliente;
+        this.dataCheckIn = dataCheckIn;
+        this.dataCheckOut = dataCheckOut;
+        this.categoriaQuarto = categoriaQuarto;
+    }
+
+    // Getters e Setters
+    public String getIdCliente() { return idCliente; }
+    public int getNumeroQuarto() { return numeroQuarto; }
+    public String getNomeCliente() { return nomeCliente; }
+    public String getDataCheckIn() { return dataCheckIn; }
+    public String getDataCheckOut() { return dataCheckOut; }
+    public String getCategoriaQuarto() { return categoriaQuarto; }
+}

@@ -1,0 +1,24 @@
+package model;
+
+public class Cliente extends Pessoa {
+	// ATRIBUTOS
+	private String telefone;
+	
+	
+	
+	// CONSTRUTOR
+	public Cliente(int id, String nome, String cpf, String telefone) {
+        super(id, nome, cpf);
+        this.telefone = telefone;
+    }
+
+
+
+	// GETTERS AND SETTERS
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+}
